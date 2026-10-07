@@ -1,0 +1,34 @@
+{
+  "project": "Daily Goals",
+  "date": "2026-10-07",
+  "android_build_status": "FAIL_BLOCKED_BEFORE_COMPILATION",
+  "blockers": [
+    "Android SDK absent",
+    "Gradle absent",
+    "SDK/Gradle downloads blocked by DNS/network failure"
+  ],
+  "debug_apk_created": false,
+  "release_apk_created": false,
+  "core_compilation": "PASS",
+  "core_tests": {
+    "executed": 82,
+    "passed": 82,
+    "failed": 0
+  },
+  "static_checks": {
+    "passed": 26,
+    "failed": 0,
+    "scope": "STATIC FILE AND RESOURCE CHECKS; not an Android build"
+  },
+  "kotlin_syntax": "29 Kotlin/Gradle files parsed; 0 syntax errors; NOT Android type checking",
+  "android_instrumented_tests": {
+    "room_written": 10,
+    "compose_written": 5,
+    "status": "NOT_RUN"
+  },
+  "android_lint": "NOT_RUN",
+  "apk_signature_metadata": "NOT_RUN_NO_APK",
+  "install_launch": "NOT_RUN_NO_DEVICE_NO_APK",
+  "github_actions": "Workflow written; NOT executed; no repository/account changes",
+  "complete_installable_app_delivered": false
+}

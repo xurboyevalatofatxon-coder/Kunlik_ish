@@ -1,0 +1,1772 @@
+SEN — senior Android software architect, Kotlin developer, UI/UX designer, QA engineer va release/build engineer sifatida ishlaysan.
+
+Mening maqsadim — quyidagi talablar asosida PROFESSIONAL, REAL, ISHLAYDIGAN Android ilova yaratish va yakunda Android telefonga to‘g‘ridan-to‘g‘ri o‘rnatish mumkin bo‘lgan **`.apk` fayl**ni olish.
+
+MUHIM:
+Faqat source code yozish yetarli emas.
+Faqat loyiha ZIP faylini berish yetarli emas.
+Faqat “build qilish mumkin” deb aytish yetarli emas.
+
+Yakuniy natijada:
+1. Android project;
+2. successfully compiled APK;
+3. installable APK;
+4. APK faylni yuklab olish uchun aniq fayl yo‘li/link
+berilishi SHART.
+
+Agar build muhiti mavjud bo‘lsa, APKni shu muhitning o‘zida build qil.
+Agar Android SDK/Gradle/JDK yetishmasa, imkon qadar muhitni tayyorla va build qil.
+Agar joriy muhitda APK build qilishning mutlaq texnik imkoni bo‘lmasa, buni yashirma, lekin source loyiha bilan birga avtomatik build pipeline ham yarat va foydalanuvchi minimal harakat bilan APK olishiga imkon ber.
+“APK yaratib bo‘lmaydi” degan javobni birinchi variant sifatida qabul qilma.
+
+============================================================
+1. MAHSULOT NOMI
+============================================================
+
+Working name:
+
+Daily Goals
+
+Ilova shaxsiy kundalik maqsadlarni yuritish, har bir kun bo‘yicha bajarilgan/bajarilmagan natijalarni belgilash va statistik tahlil qilish uchun mo‘ljallangan.
+
+Ilovaning asosiy g‘oyasi:
+
+Foydalanuvchi maqsad yaratadi → ilova har kuni oldingi kunni tekshirishni taklif qiladi → har bir maqsad uchun BAJARILDI yoki BAJARILMADI tanlanadi → kun avtomatik yakunlanadi → keyingi eng eski pending kun ochiladi → tarix o‘zgarmaydi → statistika avtomatik hisoblanadi.
+
+============================================================
+2. ASOSIY TALAB
+============================================================
+
+Ilova:
+
+- Android telefonda ishlashi;
+- offline-first bo‘lishi;
+- ma’lumotlarni lokal saqlashi;
+- tez ishlashi;
+- zamonaviy Material 3 UIga ega bo‘lishi;
+- Clean Architecture asosida qurilishi;
+- test qilinadigan bo‘lishi;
+- tarixiy ma’lumotlarni himoyalashi;
+- maqsadlarni ketma-ket tekshirtirishi;
+- haqiqiy installable APK chiqarishi kerak.
+
+============================================================
+3. TEXNOLOGIYA
+============================================================
+
+Quyidagi texnologiyalarni afzal ko‘r:
+
+- Kotlin
+- Jetpack Compose
+- Material 3
+- AndroidX
+- Navigation Compose
+- ViewModel
+- Kotlin Coroutines
+- Flow / StateFlow
+- Room
+- DataStore
+- Hilt
+- kotlinx.serialization
+- AlarmManager
+- Storage Access Framework
+- JUnit
+- AndroidX Test
+- Compose UI Test
+
+Dependency versiyalarini loyiha yaratish vaqtida mavjud bo‘lgan eng mos va barqaror stable versiyalar bilan tanla.
+Versiyalarni taxmin qilma; zarur bo‘lsa rasmiy Android Developers hujjatlaridan tekshir.
+
+============================================================
+4. ARXITEKTURA
+============================================================
+
+Clean Architecture + MVVM + unidirectional data flow.
+
+Qatlamlar:
+
+presentation
+domain
+data
+
+Tavsiya:
+
+presentation
+    ↓
+ViewModel
+    ↓
+UseCase
+    ↓
+Repository interface
+    ↓
+Repository implementation
+    ↓
+Room / DataStore
+
+Business logic Composable ichida bo‘lmasin.
+
+Statistics, pending-day logic, archive rules, date validation va finalization logic UI ichiga yozilmasin.
+
+============================================================
+5. VERSION 1 DA BO‘LMAYDI
+============================================================
+
+Quyidagilarni qo‘shma:
+
+- category;
+- weekly schedule;
+- “haftasiga X marta”;
+- quantity field;
+- partial progress;
+- custom progress percentage;
+- arbitrary old-date editing;
+- finalized history editing;
+- cloud synchronization;
+- Google Drive backup;
+- biometric authentication;
+- automatic local backup;
+- XP;
+- level;
+- streak;
+- badges;
+- unnecessary gamification;
+- keraksiz murakkab dashboard;
+- keraksiz onboarding.
+
+============================================================
+6. MAQSAD YARATISH
+============================================================
+
+Goal yaratish formasida faqat:
+
+1. Goal name
+2. Start date
+3. End date
+
+bo‘ladi.
+
+Goal name:
+- faqat bitta text field;
+- maksimal 50 belgi.
+
+Bo‘sh bo‘lsa:
+- Save disabled;
+- “Maqsad nomini kiriting”
+
+ko‘rsatiladi.
+
+Start date:
+- default = today.
+
+End date:
+- default = startDate + 30 days.
+
+Minimum:
+startDate < endDate
+
+Start va end bir xil bo‘lishi mumkin emas.
+
+============================================================
+7. MAQSADNING FAOL BO‘LISH QOIDASI
+============================================================
+
+Yangi yaratilgan maqsad yaratish kunida natijaga kirmaydi.
+
+Misol:
+
+Creation date = 05.10.2026
+
+Agar start date = 05.10.2026 bo‘lsa:
+
+birinchi tracking day = 06.10.2026
+
+06.10 natijasi 07.10 kuni tekshiriladi.
+
+Kelajakdagi start date bo‘lsa, maqsad o‘sha kelajak sanasidan faol bo‘ladi.
+
+Ya'ni business logic:
+
+effectiveTrackingStart =
+    max(configuredStartDate, tomorrow)
+
+Lekin tarixiy sanalarni yangi goal yaratishda orqaga qaytib tracking qilishga yo‘l qo‘yma.
+
+============================================================
+8. MAQSAD MUDDATI
+============================================================
+
+Tezkor tugmalar:
+
+[ 7 kun ] [ 30 kun ] [ 90 kun ]
+
+Tugmalar forma pastida alohida ko‘rinsin.
+
+Hisob:
+
+endDate = startDate + duration
+
+Masalan:
+
+start = 05.10.2026
+duration = 30
+
+end = 04.11.2026
+
+User keyin end date'ni qo‘lda o‘zgartira oladi.
+
+============================================================
+9. NOTO‘G‘RI SANALAR
+============================================================
+
+Agar:
+
+endDate < startDate
+
+holati yuzaga kelsa, ilova invalid state'ni saqlamasin.
+
+Tizim dependent sanani avtomatik ravishda valid qiymatga tuzatsin.
+
+Masalan:
+
+start = 20.10
+end = 15.10
+
+bo‘lsa:
+
+end avtomatik >= 21.10 bo‘lsin.
+
+============================================================
+10. GOAL ORDER
+============================================================
+
+Goals creation/insertion order bo‘yicha ko‘rsatiladi.
+
+Yangi goal doimo ro‘yxat oxiriga qo‘shiladi.
+
+============================================================
+11. NAVIGATION
+============================================================
+
+Bottom navigation exactly 5 bo‘lim:
+
+1. Bosh sahifa
+2. Maqsadlar
+3. Statistika
+4. Arxiv
+5. Sozlamalar
+
+Persistent FAB:
+
++
+
+asosiy screenlarda mavjud bo‘lsin.
+
+FAB orqali tezkor yangi goal yaratiladi.
+
+============================================================
+12. GOAL CARD
+============================================================
+
+Maqsadlar screenida faqat active goals ko‘rsatiladi.
+
+Archived goals faqat Arxivda bo‘ladi.
+
+Goal card'da faqat:
+
+GOAL NAME
+
+ko‘rsatiladi.
+
+Kartada:
+
+- date;
+- percentage;
+- progress;
+- category
+
+ko‘rsatilmasin.
+
+============================================================
+13. GOAL DETAIL
+============================================================
+
+Goal card bosilganda:
+
+Maqsad tafsilotlari
+
+screeni ochilsin.
+
+Unda:
+
+- goal name;
+- start date;
+- end date;
+- statistics;
+- history
+
+ko‘rinsin.
+
+Yuqori qismda:
+
+[Tahrirlash]
+[O‘chirish]
+
+actions bo‘lsin.
+
+Swipe action va uch nuqtali menu asosiy boshqaruv sifatida ishlatilmasin.
+
+============================================================
+14. EDIT GOAL
+============================================================
+
+Goal edit qilishda:
+
+- name o‘zgarishi mumkin;
+- end date o‘zgarishi mumkin;
+- start date faqat hali hech qanday result bo‘lmagan bo‘lsa o‘zgarishi mumkin.
+
+Agar kamida bitta result mavjud bo‘lsa:
+
+start date immutable.
+
+End date:
+
+- extend mumkin;
+- shorten mumkin.
+
+Lekin tarixiy recorded results hech qachon o‘zgarmasligi kerak.
+
+Agar foydalanuvchi end date'ni tarixdagi allaqachon qayd qilingan resultdan oldinga surmoqchi bo‘lsa:
+
+o‘zgarishga ruxsat berma.
+
+============================================================
+15. GOAL NAME HISTORY
+============================================================
+
+Goal nomi o‘zgartirilsa:
+
+old history = eski nom
+
+future records = yangi nom.
+
+Masalan:
+
+01.10–09.10:
+“Kundalik kitob o‘qish”
+
+10.10 dan:
+“Har kuni kitob o‘qish”
+
+Shuning uchun DailyResult ichida:
+
+goalNameSnapshot
+
+saqlansin.
+
+Tarix current goal name'dan mustaqil ishlasin.
+
+============================================================
+16. DAILY TRACKING
+============================================================
+
+Bu ilovaning eng asosiy workflow'i.
+
+User arbitrary old date tanlay olmaydi.
+
+Pending kunlar chronology bo‘yicha qayta ishlanadi.
+
+Har doim:
+
+oldest pending date
+
+birinchi ochiladi.
+
+Misol:
+
+04.10 pending
+05.10 pending
+06.10 pending
+
+bo‘lsa:
+
+04.10 first.
+
+04.10 yakunlanmasdan:
+
+05.10
+
+ochilmasin.
+
+============================================================
+17. DAILY REVIEW
+============================================================
+
+Daily Review screen:
+
+sana
+
+va shu sanada active bo‘lgan barcha goalsni ko‘rsatadi.
+
+Goal tartibi:
+
+creation order.
+
+Har bir goal uchun ikkita katta visual button:
+
+[ ✅ BAJARILDI ]
+
+[ ❌ BAJARILMADI ]
+
+BAJARILDI:
+- green
+
+BAJARILMADI:
+- red
+
+Ikonka + text + color birgalikda ishlatilsin.
+
+============================================================
+18. RESULT SELECTION
+============================================================
+
+Button bosilishi bilan result darhol yozilsin.
+
+Confirmation yo‘q.
+
+User day finalized bo‘lmaguncha tanlovni o‘zgartira oladi.
+
+Masalan:
+
+DONE → NOT_DONE
+
+yoki:
+
+NOT_DONE → DONE
+
+============================================================
+19. DAILY FINALIZATION
+============================================================
+
+Har bir active goal uchun result kiritilganda tekshir:
+
+Agar barcha active goals resultga ega bo‘lsa:
+
+- day automatically finalized;
+- all results immutable;
+- next oldest pending day automatically open.
+
+Alohida:
+
+“Kun yakunlash”
+
+tugmasi kerak emas.
+
+Alohida intermediate result screen kerak emas.
+
+============================================================
+20. NO PENDING
+============================================================
+
+Agar boshqa pending days qolmasa:
+
+"Barcha kunlar bajarib chiqildi 🎉"
+
+ko‘rsatilsin.
+
+Keyin overall statistics ko‘rsatilsin.
+
+============================================================
+21. DASHBOARD
+============================================================
+
+Bosh sahifa:
+
+- pending information;
+- statistics cards.
+
+bo‘limlaridan iborat.
+
+Alohida katta warning panel ishlatma.
+
+Agar pending day mavjud bo‘lsa:
+
+eng eski pending day ko‘rsatilsin.
+
+Masalan:
+
+“4-oktabr — tekshirilmagan.
+Yana 2 kun kutilmoqda.”
+
+Button:
+
+“Maqsadlarni tekshirish”
+
+bosilganda oldest pending day ochiladi.
+
+============================================================
+22. EMPTY STATE
+============================================================
+
+Agar goal mavjud bo‘lmasa:
+
+“Hozircha maqsadlar yo‘q”
+
+va:
+
+“+ Yangi maqsad”
+
+ko‘rsatiladi.
+
+Onboarding bo‘lmasin.
+
+============================================================
+23. EXPIRED STATE
+============================================================
+
+Agar barcha active goals expired bo‘lsa:
+
+- latest goal statistics;
+- + Yangi maqsad
+
+ko‘rsatiladi.
+
+Expired goal final relevant day finalized qilingach automatic archive bo‘ladi.
+
+============================================================
+24. DASHBOARD STATISTICS
+============================================================
+
+Card order:
+
+1. Bugun
+2. Shu hafta
+3. Shu oy
+
+Har bir card clickable.
+
+Bosilganda Statistics screen ochiladi.
+
+Card ichida:
+
+- overall percentage;
+- completed day count;
+- not-completed day count;
+- per-goal results
+
+bo‘ladi.
+
+Misol:
+
+78.4%
+11 ✅ / 3 ❌
+
+============================================================
+25. "BUGUN" SEMANTIKASI
+============================================================
+
+"Bugun" = foydalanuvchi bugun yakunlagan eng oxirgi kun.
+
+Literal current calendar date emas.
+
+Misol:
+
+current date = 05.10.2026
+
+user checks:
+04.10.2026
+
+Dashboard "Bugun":
+
+04.10.2026 result
+
+bo‘ladi.
+
+============================================================
+26. WEEK STATISTICS
+============================================================
+
+Week:
+
+Monday → Sunday
+
+Only finalized days count.
+
+Future/pending days percentage calculationga kirmaydi.
+
+============================================================
+27. MONTH STATISTICS
+============================================================
+
+Month:
+
+1st day → last day
+
+Only finalized days count.
+
+Future/pending days excluded.
+
+============================================================
+28. CUSTOM STATISTICS
+============================================================
+
+Custom:
+
+- arbitrary single date;
+- arbitrary date range.
+
+tanlash mumkin.
+
+Calendar orqali tanlanadi.
+
+Custom statistikada faqat finalized days percentage calculationga kiradi.
+
+Pending days:
+
+percentage'dan excluded.
+
+Lekin UI:
+
+“Kutilmoqda”
+
+ko‘rsatishi kerak.
+
+Custom uchun:
+
+"Faqat yakunlangan / Barcha kunlar"
+
+toggle qilmang.
+
+Faqat finalized-based calculation bo‘lsin.
+
+============================================================
+29. PERCENTAGE
+============================================================
+
+Har bir goal:
+
+DONE = 1
+NOT_DONE = 0
+
+Formula:
+
+goalPercentage =
+    done /
+    (done + notDone)
+    * 100
+
+Pending days excluded.
+
+Zero processed result:
+
+“Kutilmoqda”
+
+ko‘rsatiladi.
+
+Overall percentage'dan excluded.
+
+Display:
+
+ONE decimal place.
+
+Examples:
+
+71.4%
+80.0%
+
+============================================================
+30. OVERALL STATISTICS
+============================================================
+
+Overall percentage pooled completion emas.
+
+Har bir goal percentage alohida hisoblanadi.
+
+Keyin ularning arithmetic mean olinadi.
+
+Masalan:
+
+Goal A = 90%
+Goal B = 70%
+Goal C = 60%
+
+Overall:
+
+(90 + 70 + 60) / 3 = 73.3%
+
+Har bir goal equal weight.
+
+Zero-result goals excluded.
+
+============================================================
+31. DAILY PERCENTAGE
+============================================================
+
+Kunlik percentage:
+
+doneActiveGoals /
+activeGoalsCount
+* 100
+
+Misol:
+
+5 active goals
+
+4 DONE
+1 NOT_DONE
+
+Daily = 80.0%
+
+============================================================
+32. DAILY COUNT
+============================================================
+
+Dashboard completed / not-completed day count:
+
+Agar kunning barcha active goals = DONE:
+
+✅ completed day
+
+Agar kamida bitta active goal = NOT_DONE:
+
+❌ not-completed day
+
+Faqat finalized days hisoblanadi.
+
+============================================================
+33. STATISTICS SCREEN
+============================================================
+
+Statistics screen quyidagilarni ko‘rsatadi:
+
+- Overall
+- Per goal
+- Daily values
+- Completed counts
+- Not-completed counts
+- Pending status
+- Charts
+- Goal ranking
+
+============================================================
+34. CHARTS
+============================================================
+
+2 turdagi chart:
+
+1. Line chart
+2. Bar chart
+
+Line:
+- daily result dynamics.
+
+Bar:
+- daily percentage.
+
+Chart point/bar bosilganda:
+
+- date;
+- completed goals count;
+- not-completed goals count;
+- daily percentage
+
+ko‘rinsin.
+
+Charts accessible bo‘lsin.
+
+============================================================
+35. GOAL RANKING
+============================================================
+
+Statistics screen'da goals:
+
+percentage bo‘yicha descending orderda.
+
+Misol:
+
+1. Goal A — 95.0%
+2. Goal B — 82.5%
+3. Goal C — 61.3%
+
+============================================================
+36. HISTORY
+============================================================
+
+Goal detail'da historical data:
+
+calendar view
+
+ko‘rinishida.
+
+Calendar states:
+
+✅ + green
+❌ + red
+Kutilmoqda
+
+Color + icon ishlatilsin.
+
+Faqat rang bilan state ko‘rsatma.
+
+============================================================
+37. IMMUTABLE HISTORY
+============================================================
+
+Finalized historical result:
+
+IMMUTABLE.
+
+UI orqali:
+
+- edit qilish mumkin emas;
+- delete qilish mumkin emas;
+- rewrite qilish mumkin emas.
+
+Goal metadata o‘zgarganda:
+
+historical DailyResult untouched.
+
+============================================================
+38. ARCHIVE
+============================================================
+
+Arxiv alohida bottom-navigation section.
+
+Archived goals:
+
+- goal info;
+- history;
+- statistics;
+- reactivation.
+
+ko‘rsatadi.
+
+Sort:
+
+eng oxirgi archived goal yuqorida.
+
+============================================================
+39. AUTOMATIC ARCHIVE
+============================================================
+
+Goal end date'ga yetganida:
+
+last applicable day finalized
+
+bo‘lsa:
+
+goal automatic ARCHIVED.
+
+Userga alohida notification/snackbar shart emas.
+
+Historical data preserved.
+
+============================================================
+40. MANUAL ARCHIVE
+============================================================
+
+Goal detail'dan archive qilish mumkin.
+
+Confirmation:
+
+“Maqsadni arxivga o'tkazishni xohlaysizmi?”
+
+Buttons:
+
+[Bekor qilish]
+[Arxivlash]
+
+Muhim business rule:
+
+Manual archive TODAY'ni active periodga qo‘shmaydi.
+
+Goal:
+
+yesterday
+
+bilan tugaydi.
+
+Today uchun result talab qilinmaydi.
+
+============================================================
+41. REACTIVATION
+============================================================
+
+Archived goal:
+
+Qayta faollashtirish
+
+orqali qayta active bo‘ladi.
+
+New period:
+
+start = tomorrow
+
+End date:
+- user chooses.
+
+Old period va new period:
+
+SEPARATE HISTORY.
+
+Old history o‘zgarmaydi.
+
+============================================================
+42. REACTIVATION NAME
+============================================================
+
+Default:
+
+old goal name.
+
+User xohlasa name change qiladi.
+
+Old period:
+- old name/history.
+
+New period:
+- new name/history.
+
+============================================================
+43. DELETE GOAL
+============================================================
+
+Detail screen:
+
+“O‘chirish”
+
+Confirmation text:
+
+“Bu maqsad va uning barcha tarixiy ma’lumotlari butunlay o‘chiriladi. Davom etasizmi?”
+
+Buttons:
+
+[Bekor qilish]
+[O‘chirish]
+
+Delete natijasida:
+
+- Goal;
+- GoalPeriod;
+- DailyResult
+
+butunlay o‘chiriladi.
+
+Historical statistics'dan ham yo‘qoladi.
+
+============================================================
+44. NOTIFICATIONS
+============================================================
+
+Default:
+
+08:00
+
+User Settings orqali:
+
+- enable/disable;
+- time change
+
+qila oladi.
+
+Notification daily schedule asosida ishlaydi.
+
+Agar pending day mavjud bo‘lsa, appropriate reminder yubor.
+
+Masalan:
+
+“Kecha maqsadlaringizni tekshirish vaqti keldi.”
+
+Notification bosilganda:
+
+Bosh sahifa
+
+ochilsin.
+
+Daily Review'ga to‘g‘ridan-to‘g‘ri yuborma.
+
+Android notification permission talablarini platforma versiyasiga mos boshqar.
+
+Reboot'dan keyin schedule kerak bo‘lsa qayta tiklansin.
+
+============================================================
+45. SETTINGS
+============================================================
+
+Settings:
+
+NOTIFICATIONS
+- Enabled
+- Time
+
+LANGUAGE
+- O‘zbek
+- Русский
+- English
+
+THEME
+- Light
+- Dark
+- System default
+
+SECURITY
+- PIN on/off
+- Change PIN
+
+DATA
+- Export
+- Import
+- Delete all data
+
+============================================================
+46. PIN
+============================================================
+
+Security:
+
+optional PIN.
+
+PIN:
+
+4 digits.
+
+Biometric:
+- DO NOT IMPLEMENT.
+
+Wrong attempts:
+- no limit.
+
+PIN enabled bo‘lsa:
+
+app launch → PIN screen.
+
+PIN plaintext saqlanmasin.
+
+Secure hash ishlat.
+
+============================================================
+47. FORGOTTEN PIN
+============================================================
+
+Forgot PIN:
+
+recovery mechanism yo‘q.
+
+Foydalanuvchi:
+
+app data reset
+
+qiladi.
+
+Natijada local data o‘chadi.
+
+Oldin export qilingan backup bo‘lsa:
+
+resetdan keyin import qilishi mumkin.
+
+============================================================
+48. LOCAL DATA
+============================================================
+
+Offline-first.
+
+Main functionality internetga bog‘lanmasin.
+
+Local persistence:
+
+Room
+
+Settings:
+
+DataStore
+
+============================================================
+49. DATABASE
+============================================================
+
+Recommended relational model:
+
+Goal
+
+- id
+- rootId
+- insertionOrder
+- createdAt
+- currentStatus
+
+GoalPeriod
+
+- id
+- goalId
+- name
+- startDate
+- endDate
+- status
+- periodOrder
+- createdAt
+- archivedAt
+- archiveReason
+
+DailyResult
+
+- id
+- goalPeriodId
+- date
+- result
+- goalNameSnapshot
+- recordedAt
+- finalized
+
+Settings:
+
+- notificationEnabled
+- notificationHour
+- notificationMinute
+- language
+- theme
+- pinEnabled
+- pinHash
+- pinSalt
+- schemaVersion
+
+Database constraint:
+
+UNIQUE(goalPeriodId, date)
+
+============================================================
+50. ARCHITECTURAL RELATIONSHIP
+============================================================
+
+Goal
+  ↓ 1:N
+GoalPeriod
+  ↓ 1:N
+DailyResult
+
+Goal:
+
+logical/root entity.
+
+GoalPeriod:
+
+har bir active/reactivated period.
+
+DailyResult:
+
+actual daily historical result.
+
+============================================================
+51. PENDING DAY ALGORITHM
+============================================================
+
+Latest reviewable date:
+
+today - 1 day
+
+Oldest pending:
+
+the earliest date <= yesterday for which:
+
+- applicable active goals exist;
+- not all required results are finalized.
+
+Algorithm:
+
+for dates in ascending order:
+
+    activeGoals = activeGoalsFor(date)
+
+    if activeGoals is empty:
+        continue
+
+    results = resultsFor(date)
+
+    if not every activeGoal has finalized result:
+        return date
+
+return null
+
+============================================================
+52. DATE/TIMEZONE
+============================================================
+
+Business timezone:
+
+Asia/Tashkent
+
+UTC+05:00
+
+Date calculations must use this timezone consistently.
+
+Do not accidentally use device timezone for business-day calculations.
+
+Centralize time logic in:
+
+BusinessClock / DateProvider
+
+or equivalent abstraction.
+
+This must also make tests deterministic.
+
+============================================================
+53. EXPORT
+============================================================
+
+Support:
+
+JSON
+and/or
+ZIP
+
+Recommended ZIP:
+
+daily-goals.json
+
+JSON includes:
+
+- schemaVersion;
+- export timestamp;
+- goals;
+- goal periods;
+- daily results;
+- relevant metadata.
+
+Export plain:
+
+NO ENCRYPTION.
+
+============================================================
+54. IMPORT
+============================================================
+
+Import ONLY if local database is empty.
+
+If local database contains data:
+
+reject import.
+
+No merge.
+
+No overwrite.
+
+Example message:
+
+“Import qilish uchun ma’lumotlar bazasi bo‘sh bo‘lishi kerak.”
+
+Validate:
+
+- schema;
+- IDs;
+- dates;
+- periods;
+- result values;
+- duplicate results.
+
+============================================================
+55. DELETE ALL DATA
+============================================================
+
+Settings:
+
+“Barcha ma’lumotlarni o‘chirish”
+
+Flow:
+
+1. user requests delete;
+2. recommend export;
+3. allow export;
+4. strong confirmation;
+5. clear database;
+6. reset preferences as appropriate;
+7. return to initial state.
+
+============================================================
+56. ANDROID BACKUP
+============================================================
+
+Do not introduce unexpected cloud backup/sync.
+
+The product model is:
+
+local data + explicit user export/import.
+
+============================================================
+57. FILE API
+============================================================
+
+Use Android Storage Access Framework:
+
+Export:
+ACTION_CREATE_DOCUMENT
+
+Import:
+ACTION_OPEN_DOCUMENT
+
+============================================================
+58. ACCESSIBILITY
+============================================================
+
+Full accessibility:
+
+- TalkBack
+- contentDescription
+- semantic labels
+- adequate touch targets
+- large font support
+- contrast
+- color + icon + text
+- accessible chart descriptions
+
+No critical state may depend on color only.
+
+============================================================
+59. LOCALIZATION
+============================================================
+
+Three languages:
+
+O‘zbek
+Русский
+English
+
+Default:
+
+O‘zbek.
+
+All user-visible text must be localized.
+
+No hard-coded UI strings inside business logic.
+
+============================================================
+60. THEME
+============================================================
+
+User can choose:
+
+Light
+Dark
+System default
+
+Use Material 3 dynamic/system-friendly design where appropriate.
+
+============================================================
+61. UI/UX
+============================================================
+
+Design requirements:
+
+- clean;
+- modern;
+- minimal;
+- professional;
+- fast;
+- intuitive;
+- low cognitive load;
+- no unnecessary visual clutter.
+
+Daily review must be the most convenient interaction.
+
+The user should be able to answer:
+
+“Bajarildimi?”
+
+with one clear tap.
+
+============================================================
+62. SCREEN LIST
+============================================================
+
+Main:
+
+1. Bosh sahifa
+2. Maqsadlar
+3. Statistika
+4. Arxiv
+5. Sozlamalar
+
+Goal:
+
+6. Maqsad yaratish
+7. Maqsad tafsilotlari
+8. Maqsadni tahrirlash
+9. Kundalik tekshiruv
+
+Statistics:
+
+10. Statistics details
+11. Custom date/date-range picker
+
+Archive:
+
+12. Archived goal detail
+13. Reactivation
+
+Security:
+
+14. PIN setup
+15. PIN entry
+16. Change PIN
+
+Data:
+
+17. Export
+18. Import
+19. Delete-all confirmation
+
+============================================================
+63. TESTS
+============================================================
+
+Unit tests mandatory for:
+
+- goal validation;
+- date logic;
+- start/end rules;
+- effective tracking start;
+- pending day;
+- finalization;
+- historical immutability;
+- goal percentage;
+- overall percentage;
+- daily percentage;
+- week;
+- month;
+- custom period;
+- archive;
+- reactivation;
+- delete;
+- import validation;
+- export roundtrip;
+- PIN.
+
+UI tests:
+
+- first launch;
+- empty state;
+- create goal;
+- edit goal;
+- daily review;
+- next pending day;
+- statistics;
+- archive;
+- reactivation;
+- PIN;
+- export;
+- import;
+- delete-all;
+- language;
+- theme.
+
+============================================================
+64. BUILD REQUIREMENTS
+============================================================
+
+BU BO‘LIM JUDA MUHIM.
+
+Source code yozilgandan keyin real build bajargin.
+
+Required process:
+
+1. Clean project.
+2. Resolve dependencies.
+3. Run unit tests.
+4. Run Android lint/static checks if available.
+5. Build debug APK.
+6. Verify APK exists.
+7. Inspect APK metadata.
+8. Install/launch test if Android emulator/device is available.
+9. Fix all build errors.
+10. Build final release APK.
+
+Minimum required artifact:
+
+app-debug.apk
+
+Preferred final artifact:
+
+DailyGoals-v1.0.0-release.apk
+
+APK uchun:
+
+- valid AndroidManifest;
+- valid applicationId;
+- valid versionName;
+- valid versionCode;
+- valid minSdk/targetSdk;
+- no build errors.
+
+============================================================
+65. APK INSTALLATION
+============================================================
+
+Final answerda quyidagilarni ko‘rsat:
+
+APK:
+<exact path>
+
+Source:
+<exact path>
+
+Test:
+<result>
+
+Install:
+
+Android telefonda APK faylni ochish → Install.
+
+Agar release APK signing kerak bo‘lsa:
+
+- debug APKni ham ber;
+- release build uchun signing configurationni hujjatlashtir;
+- secretsni source ichiga yozma.
+
+============================================================
+66. “DONE” DEFINITION
+============================================================
+
+Quyidagilarsiz taskni “completed” deb e’lon qilma:
+
+- compile muvaffaqiyatli;
+- tests muvaffaqiyatli;
+- APK mavjud;
+- APK hajmi > 0;
+- APK valid;
+- package metadata tekshirilgan;
+- installable artifact tayyor.
+
+“Mana source code” degan natija yakuniy natija hisoblanmaydi.
+
+============================================================
+67. DEVELOPMENT ORDER
+============================================================
+
+Quyidagi tartibda ishlagin:
+
+PHASE 1:
+Project setup
+
+PHASE 2:
+Domain model
+
+PHASE 3:
+Room + DataStore
+
+PHASE 4:
+Goal creation
+
+PHASE 5:
+Goal list/detail/edit/delete
+
+PHASE 6:
+Daily review engine
+
+PHASE 7:
+Historical calendar
+
+PHASE 8:
+Archive/reactivation
+
+PHASE 9:
+Statistics
+
+PHASE 10:
+Charts
+
+PHASE 11:
+Notifications
+
+PHASE 12:
+Settings/theme/language
+
+PHASE 13:
+PIN
+
+PHASE 14:
+Export/import
+
+PHASE 15:
+Tests
+
+PHASE 16:
+UI polish
+
+PHASE 17:
+Release build
+
+PHASE 18:
+APK verification
+
+============================================================
+68. CODE QUALITY
+============================================================
+
+Code:
+
+- idiomatic Kotlin;
+- null-safe;
+- immutable UI state;
+- testable;
+- modular;
+- clear naming;
+- no magic numbers;
+- no business logic in UI;
+- no duplicated business logic;
+- centralized date/time;
+- centralized statistics;
+- centralized validation.
+
+Use:
+
+sealed classes
+data classes
+interfaces
+use cases
+repositories
+
+where appropriate.
+
+============================================================
+69. ERROR HANDLING
+============================================================
+
+The application must gracefully handle:
+
+- corrupted import;
+- invalid JSON;
+- unsupported schema;
+- invalid dates;
+- duplicate daily result;
+- database error;
+- notification permission denial;
+- notification scheduling failure;
+- empty database;
+- invalid PIN;
+- missing historical data.
+
+Never crash because of a recoverable user input problem.
+
+============================================================
+70. PERFORMANCE
+============================================================
+
+Application must remain responsive with:
+
+- hundreds of goals;
+- thousands of daily results;
+- long history.
+
+Do not load unnecessary records into memory.
+
+Use Room queries efficiently.
+
+Use Flow/reactive observation where useful.
+
+============================================================
+71. DATA INTEGRITY
+============================================================
+
+High priority:
+
+Historical results must always remain reproducible.
+
+If:
+
+- goal renamed;
+- end date changed;
+- goal archived;
+- goal reactivated;
+
+historical data must remain intact.
+
+Never derive historical goal name solely from current Goal state.
+
+============================================================
+72. SECURITY
+============================================================
+
+PIN:
+
+- 4 digits;
+- optional;
+- secure hash;
+- no plaintext;
+- unlimited failed attempts according to specified requirement.
+
+Export:
+
+plain JSON/ZIP;
+no encryption.
+
+============================================================
+73. FINAL DELIVERABLES
+============================================================
+
+At the end provide:
+
+1. Full Android source project ZIP.
+2. Debug APK.
+3. Release APK if possible.
+4. README.
+5. Build instructions.
+6. Test report.
+7. Short architecture document.
+
+Most importantly:
+
+**provide the actual `.apk` file as a downloadable artifact.**
+
+============================================================
+74. FINAL RESPONSE FORMAT
+============================================================
+
+Final response must clearly contain:
+
+PROJECT:
+[downloadable project ZIP]
+
+DEBUG APK:
+[downloadable .apk]
+
+RELEASE APK:
+[downloadable .apk, if built]
+
+BUILD STATUS:
+PASS / FAIL
+
+TEST STATUS:
+PASS / FAIL
+
+INSTALLATION:
+short Android installation instructions.
+
+Do not claim successful APK creation unless the APK file actually exists and was verified.
+
+============================================================
+75. ABSOLUTE SOURCE OF TRUTH
+============================================================
+
+The business rules in this prompt have priority over generic assumptions.
+
+Do not add features that were not requested.
+
+Do not alter:
+- binary result model;
+- sequential pending-day workflow;
+- immutable finalized history;
+- equal-weight overall statistics;
+- archived-period statistics;
+- tomorrow-based new goal activation;
+- local-first data model;
+- import-only-to-empty-database rule.
+
+When an implementation detail is not explicitly specified, choose the simplest robust production-quality solution compatible with the requirements.
+
+BEGIN IMPLEMENTATION NOW.
+
+First create the Android project.
+Then implement the domain and database.
+Then implement the UI and workflows.
+Then tests.
+Then build the actual APK.
+Then verify the APK.
+Then provide the downloadable APK and source ZIP.

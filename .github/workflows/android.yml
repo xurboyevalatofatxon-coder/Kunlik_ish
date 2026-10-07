@@ -1,0 +1,115 @@
+name: Build Daily Goals APK
+on:
+  workflow_dispatch:
+    inputs:
+      device_tests:
+        description: Run Android emulator UI and database tests
+        type: boolean
+        default: true
+  push:
+    branches: [main, master]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: daily-goals-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - uses: android-actions/setup-android@v3
+      - name: Install SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'build-tools;36.0.0' 'platform-tools'
+      - name: Source checks
+        run: python3 scripts/check_project.py
+      - name: Unit tests, Android lint, debug APK and unsigned release
+        run: gradle --no-daemon clean :core:test :app:lintDebug :app:assembleDebug :app:assembleRelease
+      - name: Verify debug APK signature and package metadata
+        run: |
+          mkdir -p dist
+          cp app/build/outputs/apk/debug/app-debug.apk dist/DailyGoals-v1.0.0-debug.apk
+          python3 scripts/verify_apk.py dist/DailyGoals-v1.0.0-debug.apk --package uz.dailygoals.app.debug --output dist/debug-verification.json
+      - name: Optional release signing
+        env:
+          KEY_B64: ${{ secrets.DG_KEYSTORE_BASE64 }}
+          DG_KEYSTORE_PASSWORD: ${{ secrets.DG_KEYSTORE_PASSWORD }}
+          DG_KEY_ALIAS: ${{ secrets.DG_KEY_ALIAS }}
+          DG_KEY_PASSWORD: ${{ secrets.DG_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEY_B64" ]; then
+            echo 'Release APK remains unsigned. Only the verified debug APK is published.' > dist/RELEASE_STATUS.txt
+            exit 0
+          fi
+          printf '%s' "$KEY_B64" | base64 --decode > "$RUNNER_TEMP/daily-goals-release.jks"
+          trap 'rm -f "$RUNNER_TEMP/daily-goals-release.jks"' EXIT
+          export DG_KEYSTORE_PATH="$RUNNER_TEMP/daily-goals-release.jks"
+          gradle --no-daemon :app:assembleRelease
+          cp app/build/outputs/apk/release/app-release.apk dist/DailyGoals-v1.0.0-release.apk
+          python3 scripts/verify_apk.py dist/DailyGoals-v1.0.0-release.apk --package uz.dailygoals.app --output dist/release-verification.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DailyGoals-APK
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-and-unit-test-reports
+          path: |
+            core/build/test-results/
+            core/build/reports/
+            app/build/reports/
+            reports/source-check.json
+          retention-days: 14
+  android-tests:
+    needs: build
+    if: github.event_name != 'workflow_dispatch' || inputs.device_tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [28, 36]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - uses: android-actions/setup-android@v3
+      - name: Install compile SDK for emulator tests
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'build-tools;36.0.0' 'platform-tools'
+      - name: Enable KVM access
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          script: gradle --no-daemon :app:connectedDebugAndroidTest
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-test-reports-api-${{ matrix.api }}
+          path: |
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/
+          retention-days: 14

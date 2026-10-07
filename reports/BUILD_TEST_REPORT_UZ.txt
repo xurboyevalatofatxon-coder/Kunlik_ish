@@ -1,0 +1,54 @@
+DAILY GOALS — BUILD VA TEST HISOBOTI
+Sana: 2026-10-07
+
+YAKUNIY HOLAT: APK YARATILMADI.
+Bu hisobot source ZIPni Android telefonga o‘rnatiladigan ilova deb ko‘rsatmaydi.
+
+ANDROID BUILD: FAIL / BLOCKED — Android kompilyatsiyasidan oldin to‘xtadi.
+Sabab: muhitda Android SDK va Gradle yo‘q; ularni yuklash DNS/tarmoq xatosi
+bilan bloklandi. JDK va Kotlin kompilyatori mavjud.
+DEBUG APK: MAVJUD EMAS.
+RELEASE APK: MAVJUD EMAS.
+APK metadata / imzo / install / launch: BAJARILMAGAN.
+
+HAQIQATAN BAJARILGAN TEKSHIRUVLAR:
+1. Sof Kotlin domen qatlami kompilyatsiyasi: PASS.
+2. 82 ta biznes-qoida testi: 82 PASS, 0 FAIL.
+3. 29 ta Kotlin/Gradle fayli sintaktik tahlili: 0 sintaksis xatosi.
+   Bu Android type-check yoki APK build emas.
+4. 26 ta XML/resurs/statik loyiha tekshiruvi: PASS.
+5. 3 tilda 134 tadan matn kaliti: statik jihatdan to‘liq.
+6. Python build/tekshirish skriptlari sintaksisi va CI YAML: PASS.
+
+BAJARILMAGAN:
+Android dependency resolve, KAPT/Room code generation, Android compilation,
+lint, R8, DEX/APK, imzo, real qurilmaga o‘rnatish va ishga tushirish.
+10 ta Room integratsiya testi hamda 5 ta Compose UI testi yozilgan, lekin
+emulator/Android qurilma bo‘lmagani sababli ishlatilmagan.
+Barcha talablar bo‘yicha platforma, vizual va accessibility qabul sinovlari
+hali zarur; to‘liq ishlaydigan ilova da’vosi qilinmaydi.
+
+MANBA ARXIVIDA:
+Android/Kotlin loyiha; Compose ekranlari; Room/DataStore; domen mantiqi;
+uch til; PIN; notification/SAF kodi; testlar; README; arxitektura;
+qarorlar va cheklovlar; asl topshiriq; haqiqiy test loglari;
+GitHub Actions build workflow va APKni tekshirish skripti.
+
+AVTOMATIK BUILD:
+.github/workflows/android.yml mavjud. Pipeline foydalanuvchi hisobida ishga
+tushirilmagan. Uni o‘z repozitoriyida ishga tushirish tartibi README.md da.
+Muvaffaqiyatli real builddan so‘ng DailyGoals-APK artifactida debug APK chiqishi
+ko‘zda tutilgan. Release uchun foydalanuvchining signing secrets kerak.
+Birinchi haqiqiy Android build aniqlagan xatolar tuzatilishi talab qilinishi mumkin.
+
+ASOSIY DALILLAR (ZIP ichida):
+reports/core-tests.txt
+reports/core-tests.xml
+reports/source-check.json
+reports/kotlin-syntax-check.txt
+reports/android-build-attempt.txt
+reports/gradle-bootstrap-attempt.txt
+reports/build-status.json
+
+Source ZIP o‘rnatilmaydi. Faqat tekshirilgan haqiqiy APK hosil bo‘lgach:
+telefonda APKni ochish → zarur o‘rnatish ruxsati → O‘rnatish.

@@ -1,0 +1,325 @@
+{
+  "apk_included": false,
+  "files": [
+    {
+      "path": ".github/workflows/android.yml",
+      "bytes": 4418,
+      "sha256": "8cb27bc5dbeec96fbcc8baf33139c81d790a8141b0bbc2725afaea6f01ecb4b8"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 88,
+      "sha256": "40fb4b1668a65bc9fa51c0db62c380bdadb6fe6ff7e3fd342b213808bb784c4b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6014,
+      "sha256": "d9957918255a0a3705510c3ed249038901d474cd1bc1bac918085ad7e3ce62fc"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "bytes": 3513,
+      "sha256": "5c36015609557908ea9b3e1e9e7e785b1b8b39913f4053f27350174b76b6c873"
+    },
+    {
+      "path": "app/proguard-rules.pro",
+      "bytes": 139,
+      "sha256": "5ae03ba2009a4bbf7e1dded1c32465e588a69e1fb30e2020c7b9a19ebe7f7cc1"
+    },
+    {
+      "path": "app/src/androidTest/java/uz/dailygoals/ComposeSmokeTest.kt",
+      "bytes": 2444,
+      "sha256": "06b6d6e9fa326313abe9a2447a2557001c332616b450ea304fb9e391f7828b43"
+    },
+    {
+      "path": "app/src/androidTest/java/uz/dailygoals/RoomRepositoryTest.kt",
+      "bytes": 4976,
+      "sha256": "4b5431cf0dd8c730e6d042ed56271b34a24b3d65c0455c74ae125102ba31d380"
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "bytes": 1583,
+      "sha256": "07a6440adc5efe4b40916a9067ecf3c159c7c97ebb8d1d23601ae738c0fb9da5"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/DailyGoalsApp.kt",
+      "bytes": 602,
+      "sha256": "6c4537627c1ddd5e181381dbe1c139391694d72e5a2db0a41fd87cf094f54bf8"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/MainActivity.kt",
+      "bytes": 1081,
+      "sha256": "2df5e14f9457542fc76e0977368412d4a7f9ee89c11e52d2f6737b8b10b49405"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/data/Database.kt",
+      "bytes": 7383,
+      "sha256": "9f3aa469414e5c897a7c9aef238364f0eaa888fe973326a50e03ecc688cc6539"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/data/LocalGoalRepository.kt",
+      "bytes": 6394,
+      "sha256": "03a38a217f7704639818e1e6729760a43569897c3c1c55e74a6c44e1ac6521b9"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/data/Preferences.kt",
+      "bytes": 2365,
+      "sha256": "c429e9c45f1b5fdfb066388084eb2b24f11b65453b15f012d5ff34ae2415ba2c"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/platform/Reminders.kt",
+      "bytes": 4298,
+      "sha256": "6f17c5ec8fb874aa999d3b26846ff7cae37fa8cf051b8bc4ecb7bf33eda3f5bf"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/presentation/AppNavigation.kt",
+      "bytes": 9056,
+      "sha256": "65b0167cfb7e407f95976ef50a05a79c07bf867258b42295c03c9716b4e0d8a4"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/presentation/GoalScreens.kt",
+      "bytes": 17211,
+      "sha256": "203c70d3b9939041793c8fb43d52919e2911a3cf9c8749a9516751637ce644b9"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/presentation/MainViewModel.kt",
+      "bytes": 11207,
+      "sha256": "99af447bcfe941bdd2a3587689c3f368c0d2c49a9759831c81e78cd61335a483"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/presentation/SettingsScreens.kt",
+      "bytes": 7177,
+      "sha256": "3ff622f38346bc6348cb6e47feef9edd63a7d641b43e45a0e89b65b7a6b441de"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/presentation/StatisticsScreen.kt",
+      "bytes": 7037,
+      "sha256": "7a26df0592ea7938c08f935d01b8f4f50243fb718062c489ba42f1da437953c6"
+    },
+    {
+      "path": "app/src/main/java/uz/dailygoals/presentation/UiCommon.kt",
+      "bytes": 5070,
+      "sha256": "84b5dccb12451d6d5c4501ac2fb893faedfc8bb28c820334dbc165a36668fc0f"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_launcher.xml",
+      "bytes": 555,
+      "sha256": "69f76dfcbf51d71d3e61c33e02d4319c007f6753927ad4c6e767429ae1447b0e"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_notification.xml",
+      "bytes": 279,
+      "sha256": "7e3e0c8f6511f8e80fa9271b671596f577708a2edf5f43a96d707f35e29ec687"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "bytes": 9642,
+      "sha256": "7331bd363fa2548139efa565eec69b9e12759ff2c90646a10dc5bc880b1108a2"
+    },
+    {
+      "path": "app/src/main/res/values/styles.xml",
+      "bytes": 365,
+      "sha256": "96348f78846e822145cf4235983adca475f30cbabcb7d761b9cb41bef961a490"
+    },
+    {
+      "path": "app/src/main/res/values-en/strings.xml",
+      "bytes": 8947,
+      "sha256": "dfb280ae9da984c27f54cf49cd26c2a7d000ccf5ea5bc5572279887a5c37db09"
+    },
+    {
+      "path": "app/src/main/res/values-ru/strings.xml",
+      "bytes": 12251,
+      "sha256": "66eac949e366227cdea754c4c5cfd5c58d9fd5d3147b49e8a817cf0d7b62c355"
+    },
+    {
+      "path": "app/src/main/res/xml/backup_rules.xml",
+      "bytes": 278,
+      "sha256": "a3c662aadc0f5f60759baf46ce781bfc0502e0ceecb4a81bdf24e73d53c381c3"
+    },
+    {
+      "path": "app/src/main/res/xml/data_extraction_rules.xml",
+      "bytes": 625,
+      "sha256": "1ac0f769ed9190a86eb4fc5da4f02a48fa4ccafc5497dbd760cfa15ceb6239e2"
+    },
+    {
+      "path": "build.gradle.kts",
+      "bytes": 347,
+      "sha256": "16895aa79d34e7412f4ff4344b7cea6629228cf9cf3b0a67722dbe9c71d67724"
+    },
+    {
+      "path": "core/build.gradle.kts",
+      "bytes": 258,
+      "sha256": "a0c5ea35f408b7abc2e02ef77db0819f267e81ddd3b55c5309b1c240c921a41b"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/BackupCodec.kt",
+      "bytes": 8664,
+      "sha256": "1fd7c5a7c5da1c62dc8222bf980ef2fff7d4b74f531c370805c040e982535932"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/BackupValidator.kt",
+      "bytes": 5467,
+      "sha256": "16cca84cc04318c136294f362ea1f42bbdc9e753ec4ad90f627c5ea73e6070dd"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/GoalRepository.kt",
+      "bytes": 880,
+      "sha256": "4f264dbd43e3027c01b12d9338917371ee7531d0d05b68185df2bac5ba50edce"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/GoalRules.kt",
+      "bytes": 2762,
+      "sha256": "d28ccbf00c65c34aad5f1fe64a80dd10b103d69d49a660a3030e9bd10347e8b2"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/Models.kt",
+      "bytes": 3352,
+      "sha256": "cba94f3cf49f0980c3a6642fbc211af71f8e64c106ef8ab2a43d2a3731987aa1"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/PinHasher.kt",
+      "bytes": 1588,
+      "sha256": "5e973114bf2cf8399afc936f2e53e839e85c2796c629d1d718e956b6ea12e210"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/ReviewEngine.kt",
+      "bytes": 3178,
+      "sha256": "0876176ec2136fd4d6a9279ca4f4bdb53b951dc556fa3587bff9f482e5830f46"
+    },
+    {
+      "path": "core/src/main/kotlin/uz/dailygoals/domain/Statistics.kt",
+      "bytes": 2722,
+      "sha256": "5a97981712dd8ab84d5200b3c41a510926c88631cdff0a1d5357e28392be1a43"
+    },
+    {
+      "path": "core/src/test/kotlin/uz/dailygoals/domain/CoreRulesTest.kt",
+      "bytes": 473,
+      "sha256": "c7b5c9d3178f3f657f1a74c443c6a9d92292890e2255e8b5d1fadaf67f57ab10"
+    },
+    {
+      "path": "core/src/testSupport/kotlin/uz/dailygoals/domain/CoreCases.kt",
+      "bytes": 14961,
+      "sha256": "cf382f4f93b77daae84b305c64c13329b20360faca46f4113a65793fd2cbf693"
+    },
+    {
+      "path": "core/src/testSupport/kotlin/uz/dailygoals/domain/OfflineTestMain.kt",
+      "bytes": 1036,
+      "sha256": "78e4cd6c344369cab3469c497b0526421a2e0f331b4c7c824d8c264fd4bc8c92"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 4783,
+      "sha256": "a1432d33f4e7aa8463d0550a8a19a27d61ca84fcf8c121c45abc911d9467b601"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "bytes": 3765,
+      "sha256": "3b459f20645866f6c2010a5806491b4c1b96b85ca395d6cff530ee5d702df0e8"
+    },
+    {
+      "path": "docs/QA_AND_LIMITATIONS.md",
+      "bytes": 4510,
+      "sha256": "5398297086979f4b6b83c15bf795d8282dfcea34dda34cc517836cf53f9ec7ee"
+    },
+    {
+      "path": "docs/SOURCES.md",
+      "bytes": 2235,
+      "sha256": "a8d273e5b0688ea097eee16db6e0f964e93a9c46e38ba3063c3de83151c65599"
+    },
+    {
+      "path": "docs/USER_REQUIREMENTS.txt",
+      "bytes": 34488,
+      "sha256": "6a9c7810cb792946fdb5375c801bfeccfc0c08b3437ddc699998a3ab89a81419"
+    },
+    {
+      "path": "gradle.properties",
+      "bytes": 154,
+      "sha256": "e1371d9a24da6ba03f2bec4f9a270e4a8cea9002f4ff14ab7afcb8321ce59913"
+    },
+    {
+      "path": "gradlew",
+      "bytes": 177,
+      "sha256": "0ebe2a7dbbf84ae9bae5fd7bb8fb23286b18ad0e7e582d443fcb11a76b09aa21"
+    },
+    {
+      "path": "gradlew.bat",
+      "bytes": 162,
+      "sha256": "9f7bff6f72994381fad56555d2774f6cf065c4c2badb0543c2b52216c1932247"
+    },
+    {
+      "path": "reports/BUILD_TEST_REPORT_UZ.txt",
+      "bytes": 2422,
+      "sha256": "0b51fbcb8e798eec4f1d921da8b24cf4fa338662137ddc5e98753f6360291edf"
+    },
+    {
+      "path": "reports/android-build-attempt.txt",
+      "bytes": 162,
+      "sha256": "efbd95a90cfa9780beb393873431f2a96e6ca1b4b6e5dcba79b0670bfcd301a1"
+    },
+    {
+      "path": "reports/build-status.json",
+      "bytes": 1004,
+      "sha256": "034523b00553e1184616cfde8e0b96ba91b9feef941f0d9bf3a0e5e55015fc7d"
+    },
+    {
+      "path": "reports/core-tests.txt",
+      "bytes": 3250,
+      "sha256": "6f3b7bbea819b235fb15580ffd59be63ac1dd868e0dd9d0b5b0c1206a509e8b5"
+    },
+    {
+      "path": "reports/core-tests.xml",
+      "bytes": 7026,
+      "sha256": "b2e525bb7b24a41c7262e4ea953f048f5633cc16a059c2bee7ebbe197506c9a5"
+    },
+    {
+      "path": "reports/gradle-bootstrap-attempt.txt",
+      "bytes": 175,
+      "sha256": "c1dff4e5201789880dec32ae062fd076a4b4ffe580846547f99be8d753e8ab7a"
+    },
+    {
+      "path": "reports/kotlin-syntax-check.txt",
+      "bytes": 69,
+      "sha256": "4880ff4962b2ed6a36925abbf0e750d34101069e066b7f82a16fbafc169f5735"
+    },
+    {
+      "path": "reports/source-check.json",
+      "bytes": 2895,
+      "sha256": "b387e39a6880f954cb682d313834f742da64c906f474f3bb7915d1c421c38c1c"
+    },
+    {
+      "path": "scripts/ParseKotlin.kt",
+      "bytes": 1325,
+      "sha256": "04b0c5fff6f7d2ae9ec962f6468a828a6b0d82180b08c5f6cd8619bc6806e56d"
+    },
+    {
+      "path": "scripts/bootstrap_gradle.py",
+      "bytes": 2281,
+      "sha256": "c66d4c0b4d7555ef48ea56886965361f42d5eef8c0f9e91e3f0ee26e3d0f7223"
+    },
+    {
+      "path": "scripts/build-apk.sh",
+      "bytes": 977,
+      "sha256": "177b8e68f9b0b83ed64267b93def97eb0a984468a99b05c84f92f699e263d667"
+    },
+    {
+      "path": "scripts/check_project.py",
+      "bytes": 2832,
+      "sha256": "91eaf511ab332a606f662aaf0610f9f6ea42627a11ad069d2b9514fac32651a1"
+    },
+    {
+      "path": "scripts/test-core-offline.sh",
+      "bytes": 425,
+      "sha256": "d3b2725eb363b3acf4f6d55601e6553ca8ec3a8072a188427c6622860fe14fe1"
+    },
+    {
+      "path": "scripts/verify_apk.py",
+      "bytes": 3613,
+      "sha256": "6a7dba0a0b2351a0b51980383ae250ea934d8ef2b5a76a089ae767736194782f"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "bytes": 288,
+      "sha256": "b778c0c735fbb36f1965542dfea6109eed97a3ce3a4d974ffc242f317710923f"
+    }
+  ]
+}

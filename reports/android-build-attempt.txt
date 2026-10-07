@@ -1,0 +1,2 @@
+Actual local build attempt — 2026-10-07T04:24:39+00:00
+BUILD BLOCKED: Android SDK not configured. Set ANDROID_HOME or use the included GitHub Actions workflow.

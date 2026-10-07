@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite name="DailyGoalsCore" tests="82" failures="0">
+<testcase classname="CoreCases" name="blank goal rejected"></testcase>
+<testcase classname="CoreCases" name="goal name trimmed"></testcase>
+<testcase classname="CoreCases" name="fifty code points accepted"></testcase>
+<testcase classname="CoreCases" name="fifty one code points rejected"></testcase>
+<testcase classname="CoreCases" name="unicode goal length counted correctly"></testcase>
+<testcase classname="CoreCases" name="start equal end rejected"></testcase>
+<testcase classname="CoreCases" name="end preceding start rejected"></testcase>
+<testcase classname="CoreCases" name="new goal begins tomorrow"></testcase>
+<testcase classname="CoreCases" name="future configured date preserved"></testcase>
+<testcase classname="CoreCases" name="past configured date never backfills"></testcase>
+<testcase classname="CoreCases" name="no remaining tracking day rejected"></testcase>
+<testcase classname="CoreCases" name="dependent end corrected"></testcase>
+<testcase classname="CoreCases" name="duration thirty days matches example"></testcase>
+<testcase classname="CoreCases" name="end date is inclusive"></testcase>
+<testcase classname="CoreCases" name="creation day excluded"></testcase>
+<testcase classname="CoreCases" name="fixed timezone crosses UTC midnight boundary"></testcase>
+<testcase classname="CoreCases" name="device timezone does not affect business date"></testcase>
+<testcase classname="CoreCases" name="oldest pending selected"></testcase>
+<testcase classname="CoreCases" name="overlapping goals do not double count days"></testcase>
+<testcase classname="CoreCases" name="no goals no pending"></testcase>
+<testcase classname="CoreCases" name="future periods not pending"></testcase>
+<testcase classname="CoreCases" name="interval gaps excluded"></testcase>
+<testcase classname="CoreCases" name="cannot jump pending day"></testcase>
+<testcase classname="CoreCases" name="cannot review current calendar day"></testcase>
+<testcase classname="CoreCases" name="one answer persists without finalization"></testcase>
+<testcase classname="CoreCases" name="unfinalized selection toggles"></testcase>
+<testcase classname="CoreCases" name="last answer finalizes all rows atomically"></testcase>
+<testcase classname="CoreCases" name="next oldest day follows automatically"></testcase>
+<testcase classname="CoreCases" name="finalized day rejects changes"></testcase>
+<testcase classname="CoreCases" name="period not applicable rejected"></testcase>
+<testcase classname="CoreCases" name="single goal finalizes on one tap"></testcase>
+<testcase classname="CoreCases" name="history keeps old name after rename"></testcase>
+<testcase classname="CoreCases" name="backlog gets date appropriate name"></testcase>
+<testcase classname="CoreCases" name="any recorded result locks start"></testcase>
+<testcase classname="CoreCases" name="no result allows future start change"></testcase>
+<testcase classname="CoreCases" name="end cannot exclude a recorded result"></testcase>
+<testcase classname="CoreCases" name="end may extend without changing records"></testcase>
+<testcase classname="CoreCases" name="goal percentage one decimal input unrounded"></testcase>
+<testcase classname="CoreCases" name="zero result has no percentage"></testcase>
+<testcase classname="CoreCases" name="overall is not pooled"></testcase>
+<testcase classname="CoreCases" name="zero result goal excluded from overall"></testcase>
+<testcase classname="CoreCases" name="all zero result goals remain pending"></testcase>
+<testcase classname="CoreCases" name="daily five goals four done is eighty"></testcase>
+<testcase classname="CoreCases" name="one not done means incomplete day"></testcase>
+<testcase classname="CoreCases" name="all done means completed day"></testcase>
+<testcase classname="CoreCases" name="draft results excluded from statistics"></testcase>
+<testcase classname="CoreCases" name="week Monday to Sunday"></testcase>
+<testcase classname="CoreCases" name="month full calendar including leap day"></testcase>
+<testcase classname="CoreCases" name="today means completed today not calendar today"></testcase>
+<testcase classname="CoreCases" name="today equal timestamp tie selects later reviewed date"></testcase>
+<testcase classname="CoreCases" name="no review completed today returns pending"></testcase>
+<testcase classname="CoreCases" name="custom range excludes outside results"></testcase>
+<testcase classname="CoreCases" name="manual archive ends yesterday"></testcase>
+<testcase classname="CoreCases" name="archive preserves earlier pending dates"></testcase>
+<testcase classname="CoreCases" name="archive of future goal creates no phantom days"></testcase>
+<testcase classname="CoreCases" name="expired period waits for final applicable day"></testcase>
+<testcase classname="CoreCases" name="reactivation uses new period id and tomorrow"></testcase>
+<testcase classname="CoreCases" name="reactivation does not mutate old period"></testcase>
+<testcase classname="CoreCases" name="archived period not editable"></testcase>
+<testcase classname="CoreCases" name="finalized backup round trip"></testcase>
+<testcase classname="CoreCases" name="partial backup round trip"></testcase>
+<testcase classname="CoreCases" name="empty backup round trip"></testcase>
+<testcase classname="CoreCases" name="unsupported schema rejected"></testcase>
+<testcase classname="CoreCases" name="schema integer overflow rejected"></testcase>
+<testcase classname="CoreCases" name="corrupt JSON rejected"></testcase>
+<testcase classname="CoreCases" name="trailing JSON rejected"></testcase>
+<testcase classname="CoreCases" name="duplicate JSON keys rejected"></testcase>
+<testcase classname="CoreCases" name="JSON string escaping preserved"></testcase>
+<testcase classname="CoreCases" name="unknown period foreign key rejected"></testcase>
+<testcase classname="CoreCases" name="duplicate daily result rejected"></testcase>
+<testcase classname="CoreCases" name="invalid date string rejected"></testcase>
+<testcase classname="CoreCases" name="inconsistent finalized flag rejected"></testcase>
+<testcase classname="CoreCases" name="incomplete finalized roster rejected"></testcase>
+<testcase classname="CoreCases" name="result from creation day rejected"></testcase>
+<testcase classname="CoreCases" name="future result rejected"></testcase>
+<testcase classname="CoreCases" name="PIN correct succeeds wrong fails"></testcase>
+<testcase classname="CoreCases" name="PIN stored as salted hash not plaintext"></testcase>
+<testcase classname="CoreCases" name="invalid PIN length rejected"></testcase>
+<testcase classname="CoreCases" name="invalid PIN characters rejected"></testcase>
+<testcase classname="CoreCases" name="unlimited wrong attempts do not lock correct PIN"></testcase>
+<testcase classname="CoreCases" name="malformed credential fails closed"></testcase>
+<testcase classname="CoreCases" name="large overlap pending query remains correct"></testcase>
+</testsuite>

@@ -1,0 +1,84 @@
+PASS  blank goal rejected
+PASS  goal name trimmed
+PASS  fifty code points accepted
+PASS  fifty one code points rejected
+PASS  unicode goal length counted correctly
+PASS  start equal end rejected
+PASS  end preceding start rejected
+PASS  new goal begins tomorrow
+PASS  future configured date preserved
+PASS  past configured date never backfills
+PASS  no remaining tracking day rejected
+PASS  dependent end corrected
+PASS  duration thirty days matches example
+PASS  end date is inclusive
+PASS  creation day excluded
+PASS  fixed timezone crosses UTC midnight boundary
+PASS  device timezone does not affect business date
+PASS  oldest pending selected
+PASS  overlapping goals do not double count days
+PASS  no goals no pending
+PASS  future periods not pending
+PASS  interval gaps excluded
+PASS  cannot jump pending day
+PASS  cannot review current calendar day
+PASS  one answer persists without finalization
+PASS  unfinalized selection toggles
+PASS  last answer finalizes all rows atomically
+PASS  next oldest day follows automatically
+PASS  finalized day rejects changes
+PASS  period not applicable rejected
+PASS  single goal finalizes on one tap
+PASS  history keeps old name after rename
+PASS  backlog gets date appropriate name
+PASS  any recorded result locks start
+PASS  no result allows future start change
+PASS  end cannot exclude a recorded result
+PASS  end may extend without changing records
+PASS  goal percentage one decimal input unrounded
+PASS  zero result has no percentage
+PASS  overall is not pooled
+PASS  zero result goal excluded from overall
+PASS  all zero result goals remain pending
+PASS  daily five goals four done is eighty
+PASS  one not done means incomplete day
+PASS  all done means completed day
+PASS  draft results excluded from statistics
+PASS  week Monday to Sunday
+PASS  month full calendar including leap day
+PASS  today means completed today not calendar today
+PASS  today equal timestamp tie selects later reviewed date
+PASS  no review completed today returns pending
+PASS  custom range excludes outside results
+PASS  manual archive ends yesterday
+PASS  archive preserves earlier pending dates
+PASS  archive of future goal creates no phantom days
+PASS  expired period waits for final applicable day
+PASS  reactivation uses new period id and tomorrow
+PASS  reactivation does not mutate old period
+PASS  archived period not editable
+PASS  finalized backup round trip
+PASS  partial backup round trip
+PASS  empty backup round trip
+PASS  unsupported schema rejected
+PASS  schema integer overflow rejected
+PASS  corrupt JSON rejected
+PASS  trailing JSON rejected
+PASS  duplicate JSON keys rejected
+PASS  JSON string escaping preserved
+PASS  unknown period foreign key rejected
+PASS  duplicate daily result rejected
+PASS  invalid date string rejected
+PASS  inconsistent finalized flag rejected
+PASS  incomplete finalized roster rejected
+PASS  result from creation day rejected
+PASS  future result rejected
+PASS  PIN correct succeeds wrong fails
+PASS  PIN stored as salted hash not plaintext
+PASS  invalid PIN length rejected
+PASS  invalid PIN characters rejected
+PASS  unlimited wrong attempts do not lock correct PIN
+PASS  malformed credential fails closed
+PASS  large overlap pending query remains correct
+
+CORE CASES: 82/82 PASS

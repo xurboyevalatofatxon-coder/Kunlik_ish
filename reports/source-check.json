@@ -1,0 +1,138 @@
+{
+  "scope": "STATIC FILE AND RESOURCE CHECKS; not an Android build",
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "XML: app/src/main/AndroidManifest.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/drawable/ic_notification.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/drawable/ic_launcher.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/xml/backup_rules.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/xml/data_extraction_rules.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/values-en/strings.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/values/styles.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/values/strings.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "XML: app/src/main/res/values-ru/strings.xml",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No duplicate keys: values",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No empty localized strings: values",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No duplicate keys: values-ru",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No empty localized strings: values-ru",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No duplicate keys: values-en",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No empty localized strings: values-en",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Complete Russian localization",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Complete English localization",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Every R.string reference exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Internet permission",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No exact alarm special permission",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Automatic platform backup disabled",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Binary results only",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "All five navigation routes",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No destructive Room fallback",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No bundled signing keys",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Source requirement attached",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "localized_keys_per_language": 134,
+  "kotlin_files": 26
+}
